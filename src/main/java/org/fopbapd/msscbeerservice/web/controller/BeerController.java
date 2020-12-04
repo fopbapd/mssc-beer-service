@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.UUID;
 
 @RequestMapping(value = "/api/v1/beer",
@@ -26,14 +27,14 @@ public class BeerController {
     }
 
     @PostMapping
-    public ResponseEntity saveNewBeer(@RequestBody BeerDto beerDto) {
+    public ResponseEntity saveNewBeer(@Valid @RequestBody BeerDto beerDto) {
 
         // TODO olshu: impl
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
     @PutMapping({"/{beerId}"})
-    public ResponseEntity updateBeerById(@PathVariable("beerId") UUID beerId, @RequestBody BeerDto beerDto) {
+    public ResponseEntity updateBeerById(@Valid @PathVariable("beerId") UUID beerId, @RequestBody BeerDto beerDto) {
 
         // TODO olshu: impl
         return new ResponseEntity(HttpStatus.NO_CONTENT);
