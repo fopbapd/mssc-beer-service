@@ -29,7 +29,7 @@ public class BeerController {
     @PostMapping
     public ResponseEntity saveNewBeer(@Valid @RequestBody BeerDto beerDto) {
 
-        // TODO olshu: impl
+        // TODO olshu: implement
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
