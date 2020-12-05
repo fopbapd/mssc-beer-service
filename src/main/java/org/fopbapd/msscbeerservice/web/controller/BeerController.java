@@ -1,5 +1,7 @@
 package org.fopbapd.msscbeerservice.web.controller;
 
+import lombok.RequiredArgsConstructor;
+import org.fopbapd.msscbeerservice.services.BeerService;
 import org.fopbapd.msscbeerservice.web.model.BeerDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -15,28 +17,25 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import java.util.UUID;
 
+@RequiredArgsConstructor
 @RequestMapping(value = "/api/v1/beer",
         consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 @RestController
 public class BeerController {
+    private final BeerService beerService;
+
     @GetMapping("/{beerId}")
     public ResponseEntity<BeerDto> getById(@PathVariable UUID beerId) {
-
-        // TODO olshu: impl
-        return new ResponseEntity<BeerDto>(BeerDto.builder().build(), HttpStatus.OK);
+        return new ResponseEntity<>(beerService.getById(beerId), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity saveNewBeer(@Valid @RequestBody BeerDto beerDto) {
-
-        // TODO olshu: implement
-        return new ResponseEntity(HttpStatus.CREATED);
+    public ResponseEntity<BeerDto> saveNewBeer(@Valid @RequestBody BeerDto beerDto) {
+        return new ResponseEntity<>(beerService.saveNewBeer(beerDto), HttpStatus.CREATED);
     }
 
     @PutMapping({"/{beerId}"})
-    public ResponseEntity updateBeerById(@Valid @PathVariable("beerId") UUID beerId, @RequestBody BeerDto beerDto) {
-
-        // TODO olshu: impl
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    public ResponseEntity<BeerDto> updateBeerById(@Valid @PathVariable("beerId") UUID beerId, @RequestBody BeerDto beerDto) {
+        return new ResponseEntity<>(beerService.updateBeerById(beerId, beerDto), HttpStatus.NO_CONTENT);
     }
 }
